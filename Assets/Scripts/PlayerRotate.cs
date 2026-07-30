@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class CamRotate : MonoBehaviour
+public class PlayerRotate : MonoBehaviour
 {
+    [SerializeField]
+    private float rotSpeed = 200f;
 
-    public float rotSpeed = 200f;
-
+    // È¸Àü °ª
     float mx = 0;
-    float my = 0;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,13 +19,9 @@ public class CamRotate : MonoBehaviour
     void Update()
     {
         float mouse_X = Input.GetAxis("Mouse X");
-        float mouse_Y = Input.GetAxis("Mouse Y");
 
         mx += mouse_X * rotSpeed * Time.deltaTime;
-        my += mouse_Y * rotSpeed * Time.deltaTime;
 
-        my = Mathf.Clamp(my, -90f, 90f);
-
-        transform.eulerAngles = new Vector3(-my, mx, 0);
+        transform.eulerAngles = new Vector3(0, mx, 0);
     }
 }
