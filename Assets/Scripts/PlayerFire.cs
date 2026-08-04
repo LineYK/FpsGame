@@ -38,6 +38,8 @@ public class PlayerFire : MonoBehaviour
             if (Physics.Raycast(ray, out hitInfo))
             {
                 bulletEffect.transform.position = hitInfo.point;
+                // 피격 이펙트의 forward 방향을 레이가 부딪힌 지점의 범선 벡터와 일치
+                bulletEffect.transform.forward = hitInfo.normal;
 
                 ps.Play();
             }
