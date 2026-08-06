@@ -12,6 +12,8 @@ public class PlayerMove : MonoBehaviour
     public float jumpPower = 10f;
     public bool isJumping = false;
 
+    [SerializeField] int hp = 20;
+
     void Start()
     {
         cc = GetComponent<CharacterController>();
@@ -46,5 +48,10 @@ public class PlayerMove : MonoBehaviour
 
         cc.Move(dir * moveSpeed * Time.deltaTime);
 
+    }
+
+    public void DamageAction(int damage)
+    {
+        hp -= damage;
     }
 }
