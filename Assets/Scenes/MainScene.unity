@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 721244451}
   - component: {fileID: 721244450}
   - component: {fileID: 721244454}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,6 +520,9 @@ MonoBehaviour:
   findDistance: 8
   attackDistance: 3
   moveSpeed: 5
+  attackPower: 3
+  hp: 15
+  moveDistance: 20
 --- !u!1 &896621270
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +849,7 @@ GameObject:
   - component: {fileID: 1544583633}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -949,6 +952,7 @@ MonoBehaviour:
   moveSpeed: 7
   jumpPower: 10
   isJumping: 0
+  hp: 20
 --- !u!143 &1544583632
 CharacterController:
   m_ObjectHideFlags: 0
@@ -988,8 +992,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePostion: {fileID: 1546501542}
   bombFactory: {fileID: 7216598527414621509, guid: 3d52a520a0c5d094d984d3d81a655d4f, type: 3}
-  throwPower: 15
   bulletEffect: {fileID: 570971369}
+  throwPower: 15
+  waponPower: 5
 --- !u!1 &1546501542
 GameObject:
   m_ObjectHideFlags: 0

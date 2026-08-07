@@ -6,12 +6,15 @@ public class PlayerFire : MonoBehaviour
 
     public GameObject bombFactory;
 
+    public GameObject bulletEffect;
+    
+    ParticleSystem ps;
+    
     // 투척 파워
     public float throwPower = 15f;
-
-    public GameObject bulletEffect;
-
-    ParticleSystem ps;
+    
+    // 발사 무기 공격력
+    public int waponPower = 5;
 
     void Start()
     {
@@ -37,11 +40,19 @@ public class PlayerFire : MonoBehaviour
 
             if (Physics.Raycast(ray, out hitInfo))
             {
-                bulletEffect.transform.position = hitInfo.point;
-                // 피격 이펙트의 forward 방향을 레이가 부딪힌 지점의 범선 벡터와 일치
-                bulletEffect.transform.forward = hitInfo.normal;
+                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    EnemyFSM eFSM = hitInfo.transform.GetComponent<EnemyFSM>();
+                    eFSM.HitEnemy(waponPower);
+                }
+                else
+                {
+                    bulletEffect.transform.position = hitInfo.point;
+                    // 피격 이펙트의 forward 방향을 레이가 부딪힌 지점의 범선 벡터와 일치
+                    bulletEffect.transform.forward = hitInfo.normal;
 
-                ps.Play();
+                    ps.Play();
+                }
             }
         }
     }
