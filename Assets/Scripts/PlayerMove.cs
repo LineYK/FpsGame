@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class PlayerMove : MonoBehaviour
     public bool isJumping = false;
 
     [SerializeField] int hp = 20;
+    int maxHp = 20;
+
+    [SerializeField] private Slider hpSlider;
 
     void Start()
     {
@@ -53,5 +57,6 @@ public class PlayerMove : MonoBehaviour
     public void DamageAction(int damage)
     {
         hp -= damage;
+        hpSlider.value = (float) hp / (float) maxHp;
     }
 }

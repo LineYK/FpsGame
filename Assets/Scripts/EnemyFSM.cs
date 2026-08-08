@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyFSM : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class EnemyFSM : MonoBehaviour
 
     [SerializeField] int attackPower = 3;
     [SerializeField] int hp = 15;
+    int maxHp = 15;
+
+    [SerializeField] Slider hpSlider;
 
     Vector3 originPos;
 
@@ -176,7 +180,9 @@ public class EnemyFSM : MonoBehaviour
             return;
         }
         
-        hp -= hitPower; ;
+        hp -= hitPower;
+        hpSlider.value = (float)hp / (float)maxHp;
+
         if (hp > 0)
         {
             print($"상태 전환: {m_State} -> Damaged");
