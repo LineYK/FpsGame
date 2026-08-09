@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,10 +14,14 @@ public class PlayerMove : MonoBehaviour
     public float jumpPower = 10f;
     public bool isJumping = false;
 
+    public int Hp {  get => hp; }
+
     [SerializeField] int hp = 20;
     int maxHp = 20;
 
     [SerializeField] private Slider hpSlider;
+
+    [SerializeField] private GameObject hitEffect;
 
     void Start()
     {
@@ -25,6 +30,11 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.gm.gState != GameManager.GameState.Run)
+        {
+            return;
+        }
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -58,5 +68,19 @@ public class PlayerMove : MonoBehaviour
     {
         hp -= damage;
         hpSlider.value = (float) hp / (float) maxHp;
+
+        if (hp > 0)
+        {
+            StartCoroutine(PlayHitEffect());
+        }
+    }
+
+    private IEnumerator PlayHitEffect()
+    {
+        hitEffect.SetActive(true);
+
+        yield return new WaitForSeconds(0.3f);
+
+        hitEffect.SetActive(false);
     }
 }
