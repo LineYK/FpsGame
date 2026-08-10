@@ -67,6 +67,6 @@ public class GameManager : MonoBehaviour
 
         gameLabel.SetActive(false);
 
-        gState = GameState.Ready;
+        gState = GameState.Run;
     }
 }
