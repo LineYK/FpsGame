@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +39,8 @@ public class EnemyFSM : MonoBehaviour
 
     [SerializeField] float moveDistance = 20f;
 
+    Animator anim;
+
     void Start()
     {
         m_State = EnemyState.Idle;
@@ -49,6 +50,8 @@ public class EnemyFSM : MonoBehaviour
         cc = GetComponent<CharacterController>();
 
         originPos = transform.position;
+
+        anim = transform.GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -82,6 +85,8 @@ public class EnemyFSM : MonoBehaviour
         {
             m_State = EnemyState.Move;
             print("상태 전환: Idle -> Move");
+
+            anim.SetTrigger("IdleToMove");
         }
     }
 
@@ -98,6 +103,8 @@ public class EnemyFSM : MonoBehaviour
             Vector3 dir = (player.position - transform.position).normalized;
 
             cc.Move(dir * moveSpeed * Time.deltaTime);
+
+            transform.forward = dir;
         }
         else
         {

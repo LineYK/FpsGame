@@ -6,6 +6,6 @@ public class Billboaed : MonoBehaviour
 
     void Update()
     {
-        transform.forward = target.forward;    
+        transform.forward = target.forward;
     }
 }
