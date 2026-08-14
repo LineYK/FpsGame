@@ -36,6 +36,7 @@ public class EnemyFSM : MonoBehaviour
     [SerializeField] Slider hpSlider;
 
     Vector3 originPos;
+    Quaternion originRot;
 
     [SerializeField] float moveDistance = 20f;
 
@@ -50,6 +51,7 @@ public class EnemyFSM : MonoBehaviour
         cc = GetComponent<CharacterController>();
 
         originPos = transform.position;
+        originRot = transform.rotation;
 
         anim = transform.GetComponentInChildren<Animator>();
     }
@@ -111,6 +113,8 @@ public class EnemyFSM : MonoBehaviour
             m_State = EnemyState.Attack;
             print("상태 전환: Move -> Attack");
             currentTime = attackDelay;
+
+            anim.SetTrigger("MoveToAttackDelay");
         }
     }
 
@@ -125,6 +129,8 @@ public class EnemyFSM : MonoBehaviour
                 player.GetComponent<PlayerMove>().DamageAction(attackPower);
                 print("공격");
                 currentTime = 0;
+
+                anim.SetTrigger("StartAttack");
             }
         }
         else
@@ -132,6 +138,8 @@ public class EnemyFSM : MonoBehaviour
             m_State = EnemyState.Move;
             print("상태 전환: Attack -> Move");
             currentTime = 0;
+
+            anim.SetTrigger("AttackToMove");
         }
     }
 
@@ -141,14 +149,19 @@ public class EnemyFSM : MonoBehaviour
         {
             Vector3 dir = (originPos - transform.position).normalized;
             cc.Move(dir * moveSpeed * Time.deltaTime);
+
+            transform.forward = dir;
         }
         else
         {
             transform.position = originPos;
+            transform.rotation = originRot;
 
-            hp = 15;
+            hp = maxHp;
             m_State = EnemyState.Idle;
             print("상태 전환: Return -> Idle");
+
+            anim.SetTrigger("MoveToIdle");
         }
     }
 
