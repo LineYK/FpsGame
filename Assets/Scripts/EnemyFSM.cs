@@ -126,7 +126,7 @@ public class EnemyFSM : MonoBehaviour
             currentTime += Time.deltaTime;
             if (currentTime > attackDelay)
             {
-                player.GetComponent<PlayerMove>().DamageAction(attackPower);
+                //player.GetComponent<PlayerMove>().DamageAction(attackPower);
                 print("АјАн");
                 currentTime = 0;
 
@@ -141,6 +141,11 @@ public class EnemyFSM : MonoBehaviour
 
             anim.SetTrigger("AttackToMove");
         }
+    }
+
+    public void AttackAction()
+    {
+        player.GetComponent<PlayerMove>().DamageAction(attackPower);
     }
 
     void Return()
