@@ -163,6 +163,8 @@ public class EnemyFSM : MonoBehaviour
             transform.rotation = originRot;
 
             hp = maxHp;
+            hpSlider.value = 1;
+
             m_State = EnemyState.Idle;
             print("상태 전환: Return -> Idle");
 
@@ -183,7 +185,7 @@ public class EnemyFSM : MonoBehaviour
 
     IEnumerator DamageProcess()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
 
         m_State = EnemyState.Move;
         print("상태 전환: Damaged -> Move");
@@ -212,12 +214,16 @@ public class EnemyFSM : MonoBehaviour
         {
             print($"상태 전환: {m_State} -> Damaged");
             m_State = EnemyState.Damaged;
+
+            anim.SetTrigger("Damaged");
             Damaged();
         }
         else
         {
             print($"상태 전환: {m_State} -> Die");
             m_State = EnemyState.Die;
+
+            anim.SetTrigger("Die");
             Die();
         }
     }
