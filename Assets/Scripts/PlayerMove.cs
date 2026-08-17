@@ -23,9 +23,13 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private GameObject hitEffect;
 
+    private Animator anim;
+
     void Start()
     {
         cc = GetComponent<CharacterController>();
+
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -40,6 +44,8 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 dir = new Vector3(h, 0, v);
         dir = dir.normalized;
+
+        anim.SetFloat("MoveMotion", dir.magnitude);
         
         dir = Camera.main.transform.TransformDirection(dir);
 
