@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class EnemyFSM : MonoBehaviour
@@ -42,6 +43,8 @@ public class EnemyFSM : MonoBehaviour
 
     Animator anim;
 
+    NavMeshAgent smith;
+
     void Start()
     {
         m_State = EnemyState.Idle;
@@ -54,6 +57,7 @@ public class EnemyFSM : MonoBehaviour
         originRot = transform.rotation;
 
         anim = transform.GetComponentInChildren<Animator>();
+        smith = GetComponent<NavMeshAgent>();
     }
 
     void Update()
@@ -102,11 +106,15 @@ public class EnemyFSM : MonoBehaviour
         // 플레이어와 거리가 공격 범위 밖이면 플레이어를 향해 이동
         else if (Vector3.Distance(transform.position, player.position) > attackDistance)
         {
-            Vector3 dir = (player.position - transform.position).normalized;
+            //Vector3 dir = (player.position - transform.position).normalized;
 
-            cc.Move(dir * moveSpeed * Time.deltaTime);
+            //cc.Move(dir * moveSpeed * Time.deltaTime);
 
-            transform.forward = dir;
+            //transform.forward = dir;
+
+            smith.stoppingDistance = attackDistance;
+
+            smith.SetDestination(player.position);
         }
         else
         {
