@@ -113,11 +113,14 @@ public class EnemyFSM : MonoBehaviour
             //transform.forward = dir;
 
             smith.stoppingDistance = attackDistance;
-
             smith.SetDestination(player.position);
         }
         else
         {
+            // 네비게이션 에이전트의 이동을 멈추고 경로를 초기화
+            smith.isStopped = true;
+            smith.ResetPath();
+
             m_State = EnemyState.Attack;
             print("상태 전환: Move -> Attack");
             currentTime = attackDelay;
@@ -160,13 +163,19 @@ public class EnemyFSM : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, originPos) > 0.1f)
         {
-            Vector3 dir = (originPos - transform.position).normalized;
-            cc.Move(dir * moveSpeed * Time.deltaTime);
+            //Vector3 dir = (originPos - transform.position).normalized;
+            //cc.Move(dir * moveSpeed * Time.deltaTime);
 
-            transform.forward = dir;
+            //transform.forward = dir;
+
+            smith.SetDestination(originPos);
+            smith.stoppingDistance = 0;
         }
         else
         {
+            smith.isStopped = true;
+            smith.ResetPath();
+
             transform.position = originPos;
             transform.rotation = originRot;
 
@@ -217,6 +226,10 @@ public class EnemyFSM : MonoBehaviour
         
         hp -= hitPower;
         hpSlider.value = (float)hp / (float)maxHp;
+
+        // 네비게이션 에이전트의 이동을 멈추고 경로를 초기화
+        smith.isStopped = true;
+        smith.ResetPath();
 
         if (hp > 0)
         {
