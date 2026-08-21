@@ -33,6 +33,9 @@ public class PlayerFire : MonoBehaviour
     [SerializeField]
     private TMP_Text wModeText;
 
+    [SerializeField]
+    private GameObject[] effFlash;
+
     void Start()
     {
         ps = bulletEffect.GetComponent<ParticleSystem>();
@@ -106,6 +109,8 @@ public class PlayerFire : MonoBehaviour
                     ps.Play();
                 }
             }
+
+            StartCoroutine(ShootEffectOn(0.05f));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -126,5 +131,14 @@ public class PlayerFire : MonoBehaviour
 
     }
 
+    // √—±∏ ¿Ã∆Â∆Æ ƒ⁄∑Á∆æ
+    private IEnumerator ShootEffectOn(float duration)
+    {
+        int num = Random.Range(0, effFlash.Length - 1);
+        effFlash[num].SetActive(true);
 
+        yield return new WaitForSeconds(duration);
+
+        effFlash[num].SetActive(false); yield return new WaitForSeconds(duration);
+    }
 }
