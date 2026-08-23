@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     {
         Ready,
         Run,
+        Pause,
         GameOver
     }
 
@@ -21,6 +23,10 @@ public class GameManager : MonoBehaviour
     private TMP_Text gameText;
 
     private PlayerMove player;
+
+    // 옵션 화면 UI
+    [SerializeField]
+    private GameObject gameOption;
 
     private void Awake()
     {
@@ -55,6 +61,9 @@ public class GameManager : MonoBehaviour
 
             gameText.color = new Color32(255, 0, 0, 255);
 
+            Transform buttons = gameText.transform.GetChild(0);
+            buttons.gameObject.SetActive(true);
+
             gState = GameState.GameOver;
         }
     }
@@ -70,5 +79,37 @@ public class GameManager : MonoBehaviour
         gameLabel.SetActive(false);
 
         gState = GameState.Run;
+    }
+
+    public void OpenOptionWindow()
+    {
+        gameOption.SetActive(true);
+
+        // 게임 속도 0배속
+        Time.timeScale = 0f;
+
+        gState = GameState.Pause;
+    }
+
+    public void CloseOptionWindow()
+    {
+        gameOption.SetActive(false);
+
+        // 게임 속도 1배속
+        Time.timeScale = 1f;
+
+        gState = GameState.Run;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        // 현재 씬 번호를 다시 로드한다.
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
