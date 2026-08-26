@@ -36,6 +36,15 @@ public class PlayerFire : MonoBehaviour
     [SerializeField]
     private GameObject[] effFlash;
 
+    [SerializeField]
+    private GameObject[] weapons;
+
+    [SerializeField]
+    private GameObject[] crosshairs;
+
+    private GameObject curWeapon;
+    private GameObject curCrosshair;
+
     void Start()
     {
         ps = bulletEffect.GetComponent<ParticleSystem>();
@@ -43,6 +52,9 @@ public class PlayerFire : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
 
         wMode = WeaponMode.Normal;
+
+        curWeapon = weapons[0];
+        curCrosshair = crosshairs[0];
     }
 
     void Update()
@@ -121,12 +133,30 @@ public class PlayerFire : MonoBehaviour
             Camera.main.fieldOfView = 60f;
 
             wModeText.text = "Normal Mode";
+
+            curWeapon.SetActive(false);
+            curCrosshair.SetActive(false);
+
+            curWeapon = weapons[0];
+            curCrosshair = crosshairs[0];
+
+            curWeapon.SetActive(true);
+            curCrosshair.SetActive(true);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             wMode = WeaponMode.Sniper;
 
             wModeText.text = "Sniper Mode";
+
+            curWeapon.SetActive(false);
+            curCrosshair.SetActive(false);
+
+            curWeapon = weapons[1];
+            curCrosshair = crosshairs[1];
+
+            curWeapon.SetActive(true);
+            curCrosshair.SetActive(true);
         }
 
     }
