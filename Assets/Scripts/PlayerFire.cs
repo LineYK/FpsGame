@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -42,8 +43,12 @@ public class PlayerFire : MonoBehaviour
     [SerializeField]
     private GameObject[] crosshairs;
 
+    [SerializeField]
+    private List<GameObject> weaponRs;
+
     private GameObject curWeapon;
     private GameObject curCrosshair;
+    private GameObject curWeaponRs;
 
     void Start()
     {
@@ -55,6 +60,7 @@ public class PlayerFire : MonoBehaviour
 
         curWeapon = weapons[0];
         curCrosshair = crosshairs[0];
+        curWeaponRs = weaponRs[0];
     }
 
     void Update()
@@ -136,12 +142,15 @@ public class PlayerFire : MonoBehaviour
 
             curWeapon.SetActive(false);
             curCrosshair.SetActive(false);
+            curWeaponRs.SetActive(false);
 
             curWeapon = weapons[0];
             curCrosshair = crosshairs[0];
+            curWeaponRs = weaponRs[0];
 
             curWeapon.SetActive(true);
             curCrosshair.SetActive(true);
+            curWeaponRs.SetActive(true);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -151,12 +160,15 @@ public class PlayerFire : MonoBehaviour
 
             curWeapon.SetActive(false);
             curCrosshair.SetActive(false);
+            curWeaponRs.SetActive(false);
 
             curWeapon = weapons[1];
             curCrosshair = crosshairs[1];
+            curWeaponRs = weaponRs[1];
 
             curWeapon.SetActive(true);
             curCrosshair.SetActive(true);
+            curWeapon.SetActive(true);
         }
 
     }
