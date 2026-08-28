@@ -46,6 +46,9 @@ public class PlayerFire : MonoBehaviour
     [SerializeField]
     private List<GameObject> weaponRs;
 
+    [SerializeField]
+    private GameObject crosshair02_zoom;
+
     private GameObject curWeapon;
     private GameObject curCrosshair;
     private GameObject curWeaponRs;
@@ -91,11 +94,17 @@ public class PlayerFire : MonoBehaviour
                     {
                         Camera.main.fieldOfView = 15f;
                         ZoomMode = true;
+
+                        crosshair02_zoom.SetActive(true);
+                        curCrosshair.SetActive(false);
                     } 
                     else
                     {
                         Camera.main.fieldOfView = 60f;
                         ZoomMode = false;
+
+                        crosshair02_zoom.SetActive(false);
+                        curCrosshair.SetActive(true);
                     }
                     break;
             }
@@ -135,8 +144,11 @@ public class PlayerFire : MonoBehaviour
         {
             wMode = WeaponMode.Normal;
 
+            crosshair02_zoom.SetActive(false);
+
             // 카메라 시야각 복구
             Camera.main.fieldOfView = 60f;
+            ZoomMode = false;
 
             wModeText.text = "Normal Mode";
 
@@ -154,6 +166,8 @@ public class PlayerFire : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            if (ZoomMode) return;
+
             wMode = WeaponMode.Sniper;
 
             wModeText.text = "Sniper Mode";
@@ -168,7 +182,7 @@ public class PlayerFire : MonoBehaviour
 
             curWeapon.SetActive(true);
             curCrosshair.SetActive(true);
-            curWeapon.SetActive(true);
+            curWeaponRs.SetActive(true);
         }
 
     }
