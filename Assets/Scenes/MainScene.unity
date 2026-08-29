@@ -3350,6 +3350,7 @@ MonoBehaviour:
   weaponRs:
   - {fileID: 1982097684}
   - {fileID: 68365758}
+  crosshair02_zoom: {fileID: 2013977057}
 --- !u!1 &1546501542
 GameObject:
   m_ObjectHideFlags: 0
