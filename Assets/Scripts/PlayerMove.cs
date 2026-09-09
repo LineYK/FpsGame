@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
     float gravity = -20f;
     float yVelocity = 0;
 
-    public float jumpPower = 10f;
+    public float jumpPower = 3.5f;
     public bool isJumping = false;
 
     public int Hp {  get => hp; }
